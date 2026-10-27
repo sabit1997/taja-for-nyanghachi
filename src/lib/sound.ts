@@ -42,6 +42,17 @@ export const sound = {
     tone(880, 40, { volume: 0.04 });
     tone(1320, 60, { volume: 0.04, delayMs: 40 });
   },
+  hit: () => {
+    tone(220, 40, { type: 'square', volume: 0.06 });
+    tone(880, 60, { volume: 0.04, delayMs: 30 });
+  },
+  hurt: () => {
+    tone(330, 80, { type: 'sawtooth', volume: 0.06 });
+    tone(165, 160, { type: 'sawtooth', volume: 0.06, delayMs: 80 });
+  },
+  gameOver: () => {
+    [392, 330, 262, 196].forEach((freq, i) => tone(freq, 220, { type: 'triangle', volume: 0.07, delayMs: i * 240 }));
+  },
   fanfare: () => {
     const notes = [523, 659, 784, 1047, 784, 1047];
     const lengths = [90, 90, 90, 180, 90, 320];

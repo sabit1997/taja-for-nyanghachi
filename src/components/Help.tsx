@@ -3,7 +3,7 @@ import { DosWindow } from './DosWindow';
 const KEYS: [string, string][] = [
   ['↑ ↓', '메뉴 이동'],
   ['Enter', '선택 / 다음 줄'],
-  ['1 ~ 6', '메뉴 바로 가기'],
+  ['1 ~ 7', '메뉴 바로 가기'],
   ['Tab', '한글 ↔ 영어 전환 (메뉴 화면)'],
   ['Space', '낱말 연습에서 다음 낱말'],
   ['ESC', '뒤로 가기'],

@@ -27,6 +27,7 @@ export const MENU_ICONS = {
   words: menuWords,
   sentences: menuSentences,
   long: decoComet,
+  game: grade3,
   records: menuRecords,
   settings: menuSettings,
   home: menuHome,

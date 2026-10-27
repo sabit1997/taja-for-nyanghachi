@@ -66,3 +66,14 @@ export function loadRecords(): PracticeRecord[] {
 export function addRecord(record: PracticeRecord) {
   write(RECORDS_KEY, [...loadRecords(), record].slice(-MAX_RECORDS));
 }
+
+const gameBestKey = (lang: Lang) => `taja.game.best.${lang}`;
+
+export function loadGameBest(lang: Lang): number {
+  const best = read<number>(gameBestKey(lang), 0);
+  return typeof best === 'number' ? best : 0;
+}
+
+export function saveGameBest(lang: Lang, score: number) {
+  write(gameBestKey(lang), score);
+}

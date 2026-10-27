@@ -4,6 +4,7 @@ import { StatusBar } from './components/StatusBar';
 import { setSoundEnabled } from './lib/sound';
 import { addRecord, loadRecords, loadSettings, saveSettings, type Mode, type PracticeRecord, type Settings } from './lib/storage';
 import type { SessionSummary } from './lib/useTypingSession';
+import { Game } from './game/Game';
 import { Boot } from './screens/Boot';
 import { KeyPractice } from './screens/KeyPractice';
 import { LongPractice } from './screens/LongPractice';
@@ -15,7 +16,7 @@ import { SettingsScreen } from './screens/SettingsScreen';
 import { WordPractice } from './screens/WordPractice';
 
 type Screen =
-  | { name: 'boot' | 'menu' | 'words' | 'sentences' | 'records' | 'settings' }
+  | { name: 'boot' | 'menu' | 'words' | 'sentences' | 'game' | 'records' | 'settings' }
   | { name: 'keys'; stageId?: string }
   | { name: 'long'; textId?: string }
   | { name: 'result'; record: PracticeRecord; previousBest: number | null; retryId?: string };
@@ -27,6 +28,7 @@ const HINTS: Record<Screen['name'], [string, string][]> = {
   words: [['Space', '다음 낱말'], ['ESC', '그만하기'], ['F1', '도움말']],
   sentences: [['Enter', '다음 줄'], ['ESC', '그만하기'], ['F1', '도움말']],
   long: [['Enter', '다음 줄'], ['ESC', '그만하기'], ['F1', '도움말']],
+  game: [],
   records: [['Tab', '한/영'], ['ESC', '뒤로']],
   settings: [['↑↓', '이동'], ['Enter', '켜기/끄기'], ['ESC', '뒤로']],
   result: [['Enter', '다시 하기'], ['ESC', '메뉴로']],
@@ -132,6 +134,8 @@ export function App() {
         return <WordPractice lang={lang} onExit={toMenu} onDone={(s) => finish('words', s)} />;
       case 'sentences':
         return <SentencePractice lang={lang} onExit={toMenu} onDone={(s) => finish('sentences', s)} />;
+      case 'game':
+        return <Game lang={lang} onExit={toMenu} />;
       case 'records':
         return <Records lang={lang} onExit={toMenu} />;
       case 'settings':
@@ -146,7 +150,7 @@ export function App() {
       <main className="screen" key={screen.name === 'result' ? screen.record.date : screen.name}>
         {render()}
       </main>
-      {screen.name !== 'boot' && <StatusBar hints={HINTS[screen.name]} lang={lang} />}
+      {screen.name !== 'boot' && screen.name !== 'game' && <StatusBar hints={HINTS[screen.name]} lang={lang} />}
       {help && <Help />}
     </div>
   );
