@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { accuracy, compareLine, cpm, grade } from './stats';
+import { accuracy, compareLine, cpm, grade, gradeLevel } from './stats';
 
 describe('compareLine', () => {
   it('맞은 글자와 틀린 글자를 구분한다', () => {
@@ -62,7 +62,16 @@ describe('accuracy', () => {
 
 describe('grade', () => {
   it('타수 구간별 등급', () => {
-    expect(grade(50)).toBe('거북이 출발');
-    expect(grade(320)).toBe('컴퓨터실 에이스');
+    expect(grade(50)).toBe('브론즈');
+    expect(grade(100)).toBe('실버');
+    expect(grade(320)).toBe('플래티넘');
+    expect(grade(499)).toBe('다이아몬드');
+    expect(grade(3000)).toBe('마스터');
+  });
+
+  it('등급 단계는 0~5', () => {
+    expect(gradeLevel(0)).toBe(0);
+    expect(gradeLevel(250)).toBe(2);
+    expect(gradeLevel(900)).toBe(5);
   });
 });

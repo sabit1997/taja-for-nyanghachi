@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { HAND_FRAMES } from '../assets/icons';
 import { DosWindow } from '../components/DosWindow';
 import { Keyboard } from '../components/Keyboard';
 import { bar } from '../lib/format';
@@ -75,6 +76,14 @@ function KeyDrill({ lang, stage, onExit, onDone }: { lang: Lang; stage: Stage; o
   const target = sequence[index];
   const finished = index >= sequence.length;
 
+  // 손 그림: 키를 누르면 타이핑 프레임(1~4)을 돌고, 잠시 쉬면 대기 프레임(0)으로
+  const [typing, setTyping] = useState(false);
+  useEffect(() => {
+    if (!typing) return;
+    const id = setTimeout(() => setTyping(false), 350);
+    return () => clearTimeout(id);
+  }, [typing, presses]);
+
   useEffect(() => {
     if (!wrongCode) return;
     const id = setTimeout(() => setWrongCode(null), 250);
@@ -89,6 +98,7 @@ function KeyDrill({ lang, stage, onExit, onDone }: { lang: Lang; stage: Stage; o
     const start = startedAt ?? Date.now();
     if (startedAt === null) setStartedAt(start);
     setPresses((p) => p + 1);
+    setTyping(true);
 
     if (!isCorrectPress(target, e.code, e.shiftKey, lang)) {
       sound.error();
@@ -133,6 +143,7 @@ function KeyDrill({ lang, stage, onExit, onDone }: { lang: Lang; stage: Stage; o
           {fingerFor(target)}
           {lang === 'ko' && <span className="dim"> · 한/영 상태와 관계없이 키 위치로 판정해요</span>}
         </p>
+        <img className="hands" src={HAND_FRAMES[typing ? 1 + (presses % 4) : 0]} alt="" />
         <Keyboard lang={lang} targetCode={target.key.code} shiftSide={shiftSideFor(target)} wrongCode={wrongCode} />
         <div className="stats-row">
           <span>정확도 {accuracy(index, presses)}%</span>

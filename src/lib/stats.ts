@@ -58,11 +58,13 @@ export function accuracy(correct: number, total: number): number {
   return Math.round((correct / total) * 100);
 }
 
+export const GRADES = ['브론즈', '실버', '골드', '플래티넘', '다이아몬드', '마스터'] as const;
+
+/** 타수 100타 단위로 등급 단계(0~5) */
+export function gradeLevel(score: number): number {
+  return Math.min(GRADES.length - 1, Math.max(0, Math.floor(score / 100)));
+}
+
 export function grade(score: number): string {
-  if (score >= 500) return '타자의 신';
-  if (score >= 400) return '독수리 졸업';
-  if (score >= 300) return '컴퓨터실 에이스';
-  if (score >= 200) return '쑥쑥 자라는 중';
-  if (score >= 100) return '독수리 타법';
-  return '거북이 출발';
+  return GRADES[gradeLevel(score)];
 }

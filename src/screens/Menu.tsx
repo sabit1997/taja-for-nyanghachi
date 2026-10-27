@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { DECO, MENU_ICONS } from '../assets/icons';
 import { DosWindow } from '../components/DosWindow';
 import { useKeydown } from '../lib/hooks';
 import type { Lang } from '../lib/layout';
@@ -55,6 +56,8 @@ export function Menu({ lang, initial, onSelect, onToggleLang }: Props) {
 
   return (
     <DosWindow title="TAJA v1.0" width="narrow">
+      <img className="deco deco-moon" src={DECO.moon} alt="" />
+      <img className="deco deco-planet" src={DECO.planet} alt="" />
       <div className="logo" role="img" aria-label="TAJA">
         {LOGO.map((line, y) =>
           [...line].map((px, x) => <span key={`${x}-${y}`} className={px === '█' ? 'px on' : 'px'} />),
@@ -72,6 +75,7 @@ export function Menu({ lang, initial, onSelect, onToggleLang }: Props) {
             onClick={() => choose(i)}
           >
             <span className="menu-arrow">{i === cursor ? '▶' : ' '}</span>
+            <img className="menu-icon" src={MENU_ICONS[id]} alt="" />
             {i + 1}. {label}
           </li>
         ))}

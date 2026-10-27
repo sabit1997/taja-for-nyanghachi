@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
+import { DECO, GRADE_ICONS, MENU_ICONS } from '../assets/icons';
 import { DosWindow } from '../components/DosWindow';
 import { formatDuration } from '../lib/format';
 import { useKeydown } from '../lib/hooks';
-import { grade } from '../lib/stats';
+import { grade, gradeLevel } from '../lib/stats';
 import { MODE_NAMES, type PracticeRecord } from '../lib/storage';
 
 interface Props {
@@ -48,12 +49,24 @@ export function Result({ record, previousBest, onRetry, onExit }: Props) {
           <div className="result-value">{formatDuration(record.durationMs)}</div>
         </div>
       </div>
-      <p className="center grade">「 {grade(record.cpm)} 」</p>
-      {isBest && <p className="center blink-text new-best">★ NEW RECORD ★</p>}
+      <div className="grade">
+        <img className="grade-icon" src={GRADE_ICONS[gradeLevel(record.cpm)]} alt="" />
+        <div>「 {grade(record.cpm)} 」</div>
+      </div>
+      {isBest && (
+        <p className="center new-best">
+          <img className="inline-icon" src={DECO.sparkle} alt="" />
+          <span className="blink-text">NEW RECORD</span>
+          <img className="inline-icon" src={DECO.sparkle} alt="" />
+        </p>
+      )}
       {!isBest && previousBest !== null && <p className="center dim">최고 기록 {previousBest}타</p>}
       <div className="result-actions">
         <button onClick={onRetry}>[Enter] 다시 하기</button>
-        <button onClick={onExit}>[ESC] 메뉴로</button>
+        <button onClick={onExit}>
+          <img className="inline-icon" src={MENU_ICONS.home} alt="" />
+          [ESC] 메뉴로
+        </button>
       </div>
     </DosWindow>
   );

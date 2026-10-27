@@ -194,10 +194,19 @@ button {
 }
 
 .menu li {
+  display: flex;
+  align-items: center;
   padding: 2px 12px;
   color: var(--white);
   cursor: pointer;
   white-space: pre;
+}
+
+.menu-icon {
+  width: 36px;
+  height: 30px;
+  margin-right: 10px;
+  object-fit: contain;
 }
 
 .menu li.selected {
@@ -474,11 +483,61 @@ button {
 }
 
 .grade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 12px 0 4px;
   font-size: 1.3rem;
   color: var(--white);
 }
 
+.grade-icon {
+  height: 110px;
+}
+
+/* ── 픽셀 아이콘 ───────────────── */
+.inline-icon {
+  height: 1.2em;
+  margin: 0 6px;
+  vertical-align: -0.25em;
+}
+
+.table-icon {
+  height: 32px;
+  vertical-align: middle;
+}
+
+.deco {
+  position: absolute;
+  pointer-events: none;
+}
+
+.deco-moon {
+  top: 18px;
+  left: 22px;
+  height: 40px;
+}
+
+.deco-planet {
+  top: 18px;
+  right: 22px;
+  height: 38px;
+}
+
+.hands {
+  align-self: center;
+  height: 84px;
+  margin-bottom: -12px;
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+}
+
 .new-best {
+  margin: 4px 0;
   color: var(--green);
 }
 
@@ -490,6 +549,8 @@ button {
 }
 
 .result-actions button {
+  display: flex;
+  align-items: center;
   padding: 2px 12px;
   color: var(--black);
   background: var(--gray);
