@@ -20,11 +20,13 @@ import decoMoon from './icons/deco-moon.png';
 import decoPlanet from './icons/deco-planet.png';
 import decoSparkle from './icons/deco-sparkle.png';
 import decoPaw from './icons/deco-paw-purple.png';
+import decoComet from './icons/deco-comet.png';
 
 export const MENU_ICONS = {
   keys: hands1,
   words: menuWords,
   sentences: menuSentences,
+  long: decoComet,
   records: menuRecords,
   settings: menuSettings,
   home: menuHome,

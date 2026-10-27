@@ -7,7 +7,7 @@ import type { Lang } from '../lib/layout';
 import { gradeLevel } from '../lib/stats';
 import { MODE_NAMES, loadRecords, type Mode } from '../lib/storage';
 
-const MODES: Mode[] = ['keys', 'words', 'sentences'];
+const MODES: Mode[] = ['keys', 'words', 'sentences', 'long'];
 
 export function Records({ lang, onExit }: { lang: Lang; onExit: () => void }) {
   const records = useMemo(() => loadRecords().filter((r) => r.lang === lang), [lang]);

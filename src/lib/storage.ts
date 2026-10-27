@@ -1,11 +1,12 @@
 import type { Lang } from './layout';
 
-export type Mode = 'keys' | 'words' | 'sentences';
+export type Mode = 'keys' | 'words' | 'sentences' | 'long';
 
 export const MODE_NAMES: Record<Mode, string> = {
   keys: '자리 연습',
   words: '낱말 연습',
   sentences: '짧은 글 연습',
+  long: '긴 글 연습',
 };
 
 export interface PracticeRecord {

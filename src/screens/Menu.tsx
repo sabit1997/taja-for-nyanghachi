@@ -5,12 +5,13 @@ import { useKeydown } from '../lib/hooks';
 import type { Lang } from '../lib/layout';
 import { sound } from '../lib/sound';
 
-export type MenuTarget = 'keys' | 'words' | 'sentences' | 'records' | 'settings';
+export type MenuTarget = 'keys' | 'words' | 'sentences' | 'long' | 'records' | 'settings';
 
 const ITEMS: [MenuTarget, string][] = [
   ['keys', '자리 연습'],
   ['words', '낱말 연습'],
   ['sentences', '짧은 글 연습'],
+  ['long', '긴 글 연습'],
   ['records', '기록 보기'],
   ['settings', '설정'],
 ];
@@ -39,7 +40,7 @@ export function Menu({ lang, initial, onSelect, onToggleLang }: Props) {
     if (e.key === 'ArrowUp') move(-1);
     else if (e.key === 'ArrowDown') move(1);
     else if (e.key === 'Enter') choose(cursor);
-    else if (/^[1-5]$/.test(e.key)) choose(Number(e.key) - 1);
+    else if (/^[1-6]$/.test(e.key)) choose(Number(e.key) - 1);
     else return;
     // 다음 화면의 입력창이 바로 포커스를 받으므로, 메뉴에서 누른 숫자가 그대로 입력되지 않게 막는다
     e.preventDefault();

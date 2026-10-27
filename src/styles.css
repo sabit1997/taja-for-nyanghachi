@@ -303,6 +303,32 @@ button {
   color: var(--yellow);
 }
 
+.text-list li {
+  gap: 12px;
+}
+
+.text-title {
+  flex: 1;
+}
+
+.text-meta {
+  opacity: 0.7;
+}
+
+.long .typed-line {
+  font-size: 1.4rem;
+}
+
+.long-done {
+  min-height: 3em;
+  color: var(--green);
+  opacity: 0.6;
+}
+
+.long-done .long-missed {
+  color: var(--red);
+}
+
 .line-preview {
   color: #7f7fd0;
 }

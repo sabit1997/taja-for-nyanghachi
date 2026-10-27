@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Help } from './components/Help';
 import { StatusBar } from './components/StatusBar';
-import type { Stage } from './lib/layout';
 import { setSoundEnabled } from './lib/sound';
 import { addRecord, loadRecords, loadSettings, saveSettings, type Mode, type PracticeRecord, type Settings } from './lib/storage';
 import type { SessionSummary } from './lib/useTypingSession';
 import { Boot } from './screens/Boot';
 import { KeyPractice } from './screens/KeyPractice';
+import { LongPractice } from './screens/LongPractice';
 import { Menu, type MenuTarget } from './screens/Menu';
 import { Records } from './screens/Records';
 import { Result } from './screens/Result';
@@ -17,7 +17,8 @@ import { WordPractice } from './screens/WordPractice';
 type Screen =
   | { name: 'boot' | 'menu' | 'words' | 'sentences' | 'records' | 'settings' }
   | { name: 'keys'; stageId?: string }
-  | { name: 'result'; record: PracticeRecord; previousBest: number | null; stageId?: string };
+  | { name: 'long'; textId?: string }
+  | { name: 'result'; record: PracticeRecord; previousBest: number | null; retryId?: string };
 
 const HINTS: Record<Screen['name'], [string, string][]> = {
   boot: [['아무 키', '건너뛰기']],
@@ -25,6 +26,7 @@ const HINTS: Record<Screen['name'], [string, string][]> = {
   keys: [['ESC', '뒤로'], ['F1', '도움말']],
   words: [['Space', '다음 낱말'], ['ESC', '그만하기'], ['F1', '도움말']],
   sentences: [['Enter', '다음 줄'], ['ESC', '그만하기'], ['F1', '도움말']],
+  long: [['Enter', '다음 줄'], ['ESC', '그만하기'], ['F1', '도움말']],
   records: [['Tab', '한/영'], ['ESC', '뒤로']],
   settings: [['↑↓', '이동'], ['Enter', '켜기/끄기'], ['ESC', '뒤로']],
   result: [['Enter', '다시 하기'], ['ESC', '메뉴로']],
@@ -74,17 +76,20 @@ export function App() {
     return () => window.removeEventListener('keydown', onKey, true);
   }, [help, screen.name, settings, updateSettings]);
 
-  const finish = (mode: Mode, summary: SessionSummary, stage?: Stage) => {
-    const same = loadRecords().filter((r) => r.mode === mode && r.lang === lang && r.detail === stage?.name);
+  /** detail: 단계·글 이름 (같은 detail끼리 최고 기록 비교), retryId: 다시 하기로 바로 들어갈 단계·글 id */
+  const finish = (mode: Mode, summary: SessionSummary, sub?: { id: string; name: string }) => {
+    const same = loadRecords().filter((r) => r.mode === mode && r.lang === lang && r.detail === sub?.name);
     const previousBest = same.length ? Math.max(...same.map((r) => r.cpm)) : null;
-    const record: PracticeRecord = { mode, lang, ...summary, date: Date.now(), detail: stage?.name };
+    const record: PracticeRecord = { mode, lang, ...summary, date: Date.now(), detail: sub?.name };
     addRecord(record);
-    setScreen({ name: 'result', record, previousBest, stageId: stage?.id });
+    setScreen({ name: 'result', record, previousBest, retryId: sub?.id });
   };
 
   const retry = (s: Extract<Screen, { name: 'result' }>) => {
     const mode = s.record.mode;
-    setScreen(mode === 'keys' ? { name: 'keys', stageId: s.stageId } : { name: mode });
+    if (mode === 'keys') setScreen({ name: 'keys', stageId: s.retryId });
+    else if (mode === 'long') setScreen({ name: 'long', textId: s.retryId });
+    else setScreen({ name: mode });
   };
 
   const render = () => {
@@ -99,7 +104,9 @@ export function App() {
             onToggleLang={toggleLang}
             onSelect={(target) => {
               setLastMenu(target);
-              setScreen(target === 'keys' ? { name: 'keys' } : { name: target });
+              setScreen(
+                target === 'keys' ? { name: 'keys' } : target === 'long' ? { name: 'long' } : { name: target },
+              );
             }}
           />
         );
@@ -110,6 +117,15 @@ export function App() {
             initialStageId={screen.stageId}
             onExit={toMenu}
             onDone={(summary, stage) => finish('keys', summary, stage)}
+          />
+        );
+      case 'long':
+        return (
+          <LongPractice
+            lang={lang}
+            initialTextId={screen.textId}
+            onExit={toMenu}
+            onDone={(summary, text) => finish('long', summary, { id: text.id, name: text.title })}
           />
         );
       case 'words':
