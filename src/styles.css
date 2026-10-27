@@ -1,0 +1,650 @@
+/* 도트 폰트 Galmuri (SIL OFL) — 쓰는 것만 선언해 번들을 가볍게 */
+@font-face {
+  font-family: 'GalmuriMono11';
+  src: url('../node_modules/galmuri/dist/GalmuriMono11.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Galmuri11';
+  src: url('../node_modules/galmuri/dist/Galmuri11.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* DOS 16색 팔레트 */
+:root {
+  --blue: #0000aa;
+  --navy: #000080;
+  --cyan: #00aaaa;
+  --gray: #aaaaaa;
+  --white: #ffffff;
+  --yellow: #ffff55;
+  --red: #ff5555;
+  --dark-red: #aa0000;
+  --green: #55ff55;
+  --black: #000000;
+  --font: 'GalmuriMono11', 'Galmuri11', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--blue);
+  color: var(--gray);
+  font-family: var(--font);
+  font-size: 18px;
+  line-height: 1.5;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.screen {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px 64px;
+}
+
+/* ── 창 ───────────────────────── */
+.window {
+  position: relative;
+  width: 100%;
+  border: 6px double var(--gray);
+  padding: 28px 28px 20px;
+  box-shadow: 14px 14px 0 var(--black);
+  background: var(--blue);
+}
+
+.window-wide {
+  max-width: 900px;
+}
+
+.window-narrow {
+  max-width: 620px;
+}
+
+.window-title {
+  position: absolute;
+  top: -0.85em;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0 10px;
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--white);
+  background: var(--blue);
+  white-space: nowrap;
+}
+
+.window-right {
+  position: absolute;
+  top: -0.85em;
+  right: 20px;
+  padding: 0 10px;
+  background: var(--blue);
+  color: var(--white);
+}
+
+.window-right b {
+  color: var(--yellow);
+  font-weight: normal;
+}
+
+/* ── 상태 표시줄 ───────────────── */
+.statusbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 4px 16px;
+  background: var(--cyan);
+  color: var(--black);
+}
+
+.statusbar-hints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+
+.statusbar b {
+  color: var(--dark-red);
+  font-weight: normal;
+}
+
+/* ── 공통 ─────────────────────── */
+.dim {
+  color: #7f7fd0;
+}
+
+.center {
+  text-align: center;
+}
+
+.hl {
+  color: var(--yellow);
+}
+
+.cursor,
+.blink-text {
+  animation: blink 1s step-end infinite;
+}
+
+.cursor {
+  color: var(--white);
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ── 메뉴 ─────────────────────── */
+.logo {
+  display: grid;
+  grid-template-columns: repeat(23, 10px);
+  gap: 1px;
+  justify-content: center;
+  margin: 8px 0 0;
+}
+
+.px {
+  height: 10px;
+}
+
+.px.on {
+  background: var(--yellow);
+}
+
+.subtitle {
+  margin: 8px 0 20px;
+  text-align: center;
+  color: var(--white);
+}
+
+.menu {
+  list-style: none;
+  margin: 0 auto 20px;
+  padding: 0;
+  max-width: 420px;
+}
+
+.menu li {
+  padding: 2px 12px;
+  color: var(--white);
+  cursor: pointer;
+  white-space: pre;
+}
+
+.menu li.selected {
+  background: var(--cyan);
+  color: var(--black);
+}
+
+.menu-arrow {
+  display: inline-block;
+  width: 1.5em;
+}
+
+.lang-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.lang-toggle span {
+  padding: 0 6px;
+}
+
+.lang-toggle .on {
+  background: var(--gray);
+  color: var(--blue);
+}
+
+.settings li {
+  display: flex;
+  gap: 12px;
+  white-space: normal;
+}
+
+.setting-label {
+  width: 6em;
+}
+
+.setting-value {
+  color: var(--yellow);
+}
+
+.menu li.selected .setting-value {
+  color: var(--dark-red);
+}
+
+.setting-desc {
+  opacity: 0.7;
+}
+
+/* ── 타자 줄 ──────────────────── */
+.practice {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.typed-line {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+.line-target {
+  color: var(--white);
+}
+
+.line-target .next {
+  text-decoration: underline;
+  text-decoration-color: var(--yellow);
+  text-underline-offset: 6px;
+}
+
+.line-typed {
+  min-height: 1.6em;
+  border-top: 1px dashed var(--navy);
+}
+
+.ch-ok {
+  color: var(--green);
+}
+
+.ch-bad {
+  color: var(--white);
+  background: var(--dark-red);
+}
+
+.ch-pending {
+  color: var(--yellow);
+}
+
+.line-preview {
+  color: #7f7fd0;
+}
+
+.word-box {
+  margin: 0 auto;
+  min-width: 60%;
+  padding: 16px 24px;
+  border: 2px solid var(--gray);
+  text-align: center;
+}
+
+.word-box .line-typed {
+  border-top: none;
+}
+
+.word-history,
+.word-next {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  min-height: 1.5em;
+}
+
+.word-history .ch-bad {
+  background: none;
+  color: var(--red);
+  text-decoration: line-through;
+}
+
+.word-next {
+  color: #7f7fd0;
+}
+
+.lang-hint {
+  margin: 0;
+  text-align: center;
+  color: var(--black);
+  background: var(--yellow);
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--navy);
+  color: var(--white);
+}
+
+.hidden-input {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  border: 0;
+  padding: 0;
+}
+
+/* ── 자리 연습 ─────────────────── */
+.drill {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.drill-queue {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 14px;
+  min-height: 3.5rem;
+}
+
+.drill-current {
+  padding: 0 14px;
+  font-size: 2.6rem;
+  line-height: 1.2;
+  color: var(--black);
+  background: var(--yellow);
+}
+
+.drill-next {
+  font-size: 1.4rem;
+  color: #7f7fd0;
+}
+
+.finger {
+  margin: 0;
+  text-align: center;
+  color: var(--white);
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.kb-row {
+  display: flex;
+  gap: 6px;
+}
+
+.kb-row-1 {
+  margin-left: 1.2em;
+}
+
+.kb-row-2 {
+  margin-left: 0;
+}
+
+.key {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6em;
+  height: 2.6em;
+  border: 2px solid var(--gray);
+  background: var(--navy);
+  color: var(--white);
+}
+
+.key-sub {
+  position: absolute;
+  top: 1px;
+  right: 4px;
+  font-size: 0.65em;
+  opacity: 0.7;
+}
+
+.key-home::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  width: 0.8em;
+  border-bottom: 2px solid var(--gray);
+}
+
+.key-wide {
+  width: 4.2em;
+  font-size: 0.8em;
+  height: 3.25em;
+}
+
+.key-space {
+  width: 16em;
+}
+
+.key-target {
+  background: var(--yellow);
+  color: var(--black);
+  border-color: var(--white);
+}
+
+.key-wrong {
+  background: var(--red);
+  color: var(--black);
+}
+
+/* ── 결과 / 기록 ───────────────── */
+.result-main {
+  display: flex;
+  justify-content: space-around;
+  margin: 24px 0 8px;
+  text-align: center;
+}
+
+.result-label {
+  color: #7f7fd0;
+}
+
+.result-value {
+  font-size: 2.4rem;
+  color: var(--yellow);
+}
+
+.grade {
+  font-size: 1.3rem;
+  color: var(--white);
+}
+
+.new-best {
+  color: var(--green);
+}
+
+.result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.result-actions button {
+  padding: 2px 12px;
+  color: var(--black);
+  background: var(--gray);
+  box-shadow: 4px 4px 0 var(--black);
+}
+
+.result-actions button:hover {
+  background: var(--cyan);
+}
+
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--white);
+}
+
+.records-table th {
+  color: var(--black);
+  background: var(--gray);
+  font-weight: normal;
+  padding: 2px 8px;
+  text-align: left;
+}
+
+.records-table td {
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--navy);
+}
+
+.section-title {
+  margin: 24px 0 8px;
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--white);
+}
+
+.recent-row {
+  display: grid;
+  grid-template-columns: 7.5em 7em 1fr 4em 3em;
+  gap: 12px;
+  align-items: center;
+}
+
+.recent-mode {
+  color: var(--white);
+}
+
+.recent-bar {
+  color: var(--cyan);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* ── 도움말 / 부팅 ─────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.help-table th {
+  padding-right: 24px;
+  text-align: left;
+  font-weight: normal;
+  color: var(--yellow);
+}
+
+.help-table td {
+  color: var(--white);
+}
+
+.boot {
+  flex: 1;
+  padding: 24px;
+  background: var(--black);
+  color: var(--gray);
+  cursor: pointer;
+}
+
+/* ── CRT 효과 (설정에서 켬) ─────── */
+.crt {
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.35);
+}
+
+.crt::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.45) 100%);
+  z-index: 10;
+}
+
+/* ── 좁은 화면 ─────────────────── */
+@media (max-width: 640px) {
+  html,
+  body {
+    font-size: 15px;
+  }
+
+  .window {
+    padding: 24px 14px 16px;
+    box-shadow: 8px 8px 0 var(--black);
+  }
+
+  .window-title {
+    left: 12px;
+    transform: none;
+    max-width: calc(100% - 8em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .window-right {
+    right: 8px;
+  }
+
+  .drill-queue {
+    overflow: hidden;
+    justify-content: flex-start;
+  }
+
+  .keyboard {
+    font-size: 0.6rem;
+  }
+
+  .kb-row {
+    gap: 3px;
+  }
+
+  .key {
+    width: 2.7em;
+    height: 2.7em;
+  }
+
+  .key-wide {
+    width: 3.6em;
+  }
+
+  .key-space {
+    width: 16em;
+  }
+
+  .recent-row {
+    grid-template-columns: 1fr 1fr 3.5em;
+  }
+
+  .recent-row .dim,
+  .recent-bar {
+    display: none;
+  }
+}
