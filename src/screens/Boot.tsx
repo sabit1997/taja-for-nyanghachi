@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useKeydown } from '../lib/hooks';
 
 const LINES = [
-  'TAJA BIOS v1.0  (C) 1995 TAJA SOFT',
+  'NYANG BIOS v1.0  (C) 1995 NYANGHACHI SOFT',
   '',
   'Main Processor : 486DX2-66',
   'Memory Test    : 640K OK',
@@ -11,7 +11,7 @@ const LINES = [
   '',
   'Starting MS-DOS...',
   '',
-  'C:\\> TAJA.EXE',
+  'C:\\> NYANG.EXE',
 ];
 
 export function Boot({ onDone }: { onDone: () => void }) {

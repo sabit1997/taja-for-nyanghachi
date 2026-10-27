@@ -15,15 +15,6 @@ const ITEMS: [MenuTarget, string][] = [
   ['settings', '설정'],
 ];
 
-// 5x5 픽셀 글자: T A J A
-const LOGO = [
-  '█████  ███    ███  ███ ',
-  '  █   █   █     █ █   █',
-  '  █   █████     █ █████',
-  '  █   █   █ █   █ █   █',
-  '  █   █   █  ███  █   █',
-];
-
 interface Props {
   lang: Lang;
   initial: MenuTarget;
@@ -55,15 +46,11 @@ export function Menu({ lang, initial, onSelect, onToggleLang }: Props) {
   });
 
   return (
-    <DosWindow title="TAJA v1.0" width="narrow">
+    <DosWindow title="냥하치 타자 v1.0" width="narrow">
       <img className="deco deco-moon" src={DECO.moon} alt="" />
       <img className="deco deco-planet" src={DECO.planet} alt="" />
-      <div className="logo" role="img" aria-label="TAJA">
-        {LOGO.map((line, y) =>
-          [...line].map((px, x) => <span key={`${x}-${y}`} className={px === '█' ? 'px on' : 'px'} />),
-        )}
-      </div>
-      <p className="subtitle">레트로 타자연습 · (C) 1995 TAJA SOFT</p>
+      <h2 className="logo">냥하치 타자</h2>
+      <p className="subtitle">레트로 타자연습 · (C) 1995 NYANGHACHI SOFT</p>
 
       <ul className="menu" role="menu">
         {ITEMS.map(([id, label], i) => (

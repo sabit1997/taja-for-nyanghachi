@@ -130,6 +130,10 @@ button {
   gap: 4px 20px;
 }
 
+.statusbar-lang {
+  white-space: nowrap;
+}
+
 .statusbar b {
   color: var(--dark-red);
   font-weight: normal;
@@ -165,19 +169,20 @@ button {
 
 /* ── 메뉴 ─────────────────────── */
 .logo {
-  display: grid;
-  grid-template-columns: repeat(23, 10px);
-  gap: 1px;
-  justify-content: center;
   margin: 8px 0 0;
+  font-family: 'Galmuri14', var(--font);
+  font-size: 3rem;
+  font-weight: normal;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--yellow);
+  text-shadow: 4px 4px 0 var(--black);
 }
 
-.px {
-  height: 10px;
-}
-
-.px.on {
-  background: var(--yellow);
+@font-face {
+  font-family: 'Galmuri14';
+  src: url('../node_modules/galmuri/dist/Galmuri14.woff2') format('woff2');
+  font-display: swap;
 }
 
 .subtitle {
@@ -660,6 +665,16 @@ button {
   .window {
     padding: 24px 14px 16px;
     box-shadow: 8px 8px 0 var(--black);
+  }
+
+  .logo {
+    margin-top: 36px;
+    font-size: 2.2rem;
+  }
+
+  .deco-moon,
+  .deco-planet {
+    height: 30px;
   }
 
   .window-title {

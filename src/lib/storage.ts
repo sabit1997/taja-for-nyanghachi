@@ -25,6 +25,7 @@ export interface Settings {
   lang: Lang;
 }
 
+// 키 이름은 사이트 이름이 바뀌어도 기존 기록을 지키려고 그대로 둔다
 const SETTINGS_KEY = 'taja.settings';
 const RECORDS_KEY = 'taja.records';
 const MAX_RECORDS = 300;
