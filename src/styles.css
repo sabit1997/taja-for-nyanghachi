@@ -314,6 +314,17 @@ button {
 
 .text-title {
   flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-done {
+  color: var(--green);
+}
+
+.menu li.selected .text-done {
+  color: var(--blue);
 }
 
 .text-meta {
