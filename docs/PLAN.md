@@ -36,9 +36,15 @@
 | 4 | 짧은 글 연습 | 타수·정확도·오타 하이라이트 |
 | 5 | 결과 화면 + 기록 보기 | 최고 타수, 평균, 최근 10회 도트 막대 그래프 |
 | 6 | 효과음 + 설정 | 사운드 / CRT / 부팅 연출 on/off |
-| 7 | 긴 글 연습 | 한/영 각 4편 (저작권 만료 글). 화면 폭에 맞춰 자동 줄 나눔, 글마다 최고 기록 |
+| 7 | 긴 글 연습 | 한글 12편·영어 7편. 화면 폭에 맞춰 자동 줄 나눔, 글마다 최고 기록 |
 
 - 기록은 localStorage. 로그인 없음.
+
+### 긴 글 목록
+
+- 저작권 만료: 애국가, 서시(윤동주), 진달래꽃·엄마야 누나야(김소월), 님의 침묵(한용운), 동백꽃(김유정, 위키문헌 원문을 4편으로 분할) / Gettysburg Address, Sonnet 18, The Road Not Taken, Alice in Wonderland 첫 문단, "Hope" is the thing with feathers(Dickinson)
+- 창작 (Claude): 냥하치와 1995년 컴퓨터실, 생선 도둑 외계인, 비 오는 날의 고양이 우체국 / The Night the Computer Lab Meowed, A Letter from the Moon Fortress
+- 키보드로 치기 어려운 문자(…, —)는 ..., - 로 바꿔 싣는다
 
 ### 게임 모드: 냥하치 우주 대모험
 
