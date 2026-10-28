@@ -7,7 +7,7 @@ import { useImeInput } from '../lib/hooks';
 import type { Lang } from '../lib/layout';
 import { sound } from '../lib/sound';
 import { compareLine } from '../lib/stats';
-import { MAX_HEARTS, WRONG_PENALTY, damageFor, type StageDef } from './stages';
+import { MAX_HEARTS, chargeAfterHit, damageFor, type StageDef } from './stages';
 
 export interface RunState {
   hearts: number;
@@ -21,7 +21,10 @@ export interface RunState {
 
 interface Props {
   lang: Lang;
+  /** 난이도가 반영된 스테이지 */
   stage: StageDef;
+  wrongPenalty: number;
+  difficultyName: string;
   run: RunState;
   onWin: (run: RunState) => void;
   onLose: (run: RunState) => void;
@@ -35,7 +38,7 @@ interface Hit {
   damage: number;
 }
 
-export function Battle({ lang, stage, run: initialRun, onWin, onLose }: Props) {
+export function Battle({ lang, stage, wrongPenalty, difficultyName, run: initialRun, onWin, onLose }: Props) {
   const targets = useMemo(() => stage.targets(lang), [stage, lang]);
   const [turn, setTurn] = useState(0);
   const [run, setRun] = useState(initialRun);
@@ -60,7 +63,7 @@ export function Battle({ lang, stage, run: initialRun, onWin, onLose }: Props) {
     if (typed !== target) {
       sound.error();
       setCombo(0);
-      setCharge((c) => Math.min(1, c + WRONG_PENALTY));
+      setCharge((c) => Math.min(1, c + wrongPenalty));
       setRun((r) => ({ ...r, attempts: r.attempts + 1 }));
       return;
     }
@@ -80,7 +83,7 @@ export function Battle({ lang, stage, run: initialRun, onWin, onLose }: Props) {
     setHit({ id: Date.now(), damage });
     setCombo(nextCombo);
     setEnemyHp(nextHp);
-    setCharge(0);
+    setCharge((c) => chargeAfterHit(c, target));
     setRun(nextRun);
     setTurn((t) => t + 1);
     if (nextHp === 0) {
@@ -133,7 +136,9 @@ export function Battle({ lang, stage, run: initialRun, onWin, onLose }: Props) {
   return (
     <div className={`battle ${hurtId ? `hurt-${hurtId % 2}` : ''}`} onClick={input.focus}>
       <header className="hud">
-        <span className="hud-stage">{stage.label}</span>
+        <span className="hud-stage">
+          {stage.label} <span className="hud-difficulty">{difficultyName}</span>
+        </span>
         <span>
           SCORE <b>{run.score.toLocaleString()}</b>
         </span>
@@ -154,7 +159,7 @@ export function Battle({ lang, stage, run: initialRun, onWin, onLose }: Props) {
 
         <div className="fighter enemy">
           <div className="fighter-name">
-            {stage.boss && <span className="boss-tag">BOSS</span>} {stage.enemy}
+            {stage.boss && <span className="boss-tag">{stage.boss === 'final' ? 'FINAL BOSS' : 'BOSS'}</span>} {stage.enemy}
           </div>
           <div className="bar hp-bar">
             <div style={{ width: `${(enemyHp / stage.hp) * 100}%` }} />
@@ -171,6 +176,7 @@ export function Battle({ lang, stage, run: initialRun, onWin, onLose }: Props) {
               key={hit?.id ?? 'enemy'}
               className={`sprite enemy-sprite ${stage.boss ? 'boss' : ''} ${hit ? 'shake' : ''} ${enemyDead ? 'dead' : ''}`}
               src={stage.sprite}
+              style={stage.tint ? { filter: stage.tint } : undefined}
               alt={stage.enemy}
             />
             {hit && (
