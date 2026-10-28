@@ -51,7 +51,7 @@ function TextSelect({ lang, onSelect, onExit }: { lang: Lang; onSelect: (t: Long
   });
 
   return (
-    <DosWindow title="긴 글 연습" width="narrow">
+    <DosWindow title="긴 글 연습">
       <p>연습할 글을 고르세요.</p>
       <ul className="menu text-list">
         {texts.map((t, i) => (

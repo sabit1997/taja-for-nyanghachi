@@ -303,8 +303,13 @@ button {
   color: var(--yellow);
 }
 
+.text-list {
+  max-width: none;
+}
+
 .text-list li {
   gap: 12px;
+  white-space: normal;
 }
 
 .text-title {
@@ -313,6 +318,7 @@ button {
 
 .text-meta {
   opacity: 0.7;
+  white-space: nowrap;
 }
 
 .long .typed-line {
