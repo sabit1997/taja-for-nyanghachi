@@ -25,8 +25,8 @@ export const STAGES: StageDef[] = [
     label: 'STAGE 1-1',
     enemy: '꼬마 UFO',
     sprite: ufoSprite,
-    hp: 40,
-    attackMs: 8000,
+    hp: 60,
+    attackMs: 5500,
     targets: (lang) => pickRandom(shortWords(lang), 40),
   },
   {
@@ -34,8 +34,8 @@ export const STAGES: StageDef[] = [
     label: 'STAGE 1-2',
     enemy: '초록 외계인',
     sprite: alienSprite,
-    hp: 70,
-    attackMs: 6500,
+    hp: 110,
+    attackMs: 4500,
     targets: (lang) => pickRandom(WORDS[lang], 60),
   },
   {
@@ -44,14 +44,16 @@ export const STAGES: StageDef[] = [
     enemy: '마스터 UFO',
     sprite: bossSprite,
     boss: true,
-    hp: 160,
-    attackMs: 11000,
+    hp: 240,
+    attackMs: 8000,
     targets: (lang) => pickRandom(SENTENCES[lang], 20),
   },
 ];
 
 export const MAX_HEARTS = 5;
-export const WRONG_PENALTY = 0.2;
+export const WRONG_PENALTY = 0.3;
+/** 맞힌 타수 1타당 적 공격 게이지를 밀어내는 양 */
+export const RELIEF_PER_KEY = 0.045;
 
 /** 콤보 10까지 10%씩 보너스 */
 export function comboMultiplier(combo: number): number {
@@ -61,6 +63,11 @@ export function comboMultiplier(combo: number): number {
 /** 데미지 = 친 타수 × 콤보 배율 */
 export function damageFor(target: string, combo: number): number {
   return Math.round(countKeystrokes(target) * comboMultiplier(combo));
+}
+
+/** 낱말을 맞히면 친 타수만큼 공격 게이지를 밀어낸다 (긴 문장일수록 많이) */
+export function chargeAfterHit(charge: number, target: string): number {
+  return Math.max(0, charge - countKeystrokes(target) * RELIEF_PER_KEY);
 }
 
 export function clearBonus(hearts: number): number {

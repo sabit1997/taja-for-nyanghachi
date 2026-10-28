@@ -7,7 +7,7 @@ import { useImeInput } from '../lib/hooks';
 import type { Lang } from '../lib/layout';
 import { sound } from '../lib/sound';
 import { compareLine } from '../lib/stats';
-import { MAX_HEARTS, WRONG_PENALTY, damageFor, type StageDef } from './stages';
+import { MAX_HEARTS, WRONG_PENALTY, chargeAfterHit, damageFor, type StageDef } from './stages';
 
 export interface RunState {
   hearts: number;
@@ -80,7 +80,7 @@ export function Battle({ lang, stage, run: initialRun, onWin, onLose }: Props) {
     setHit({ id: Date.now(), damage });
     setCombo(nextCombo);
     setEnemyHp(nextHp);
-    setCharge(0);
+    setCharge((c) => chargeAfterHit(c, target));
     setRun(nextRun);
     setTurn((t) => t + 1);
     if (nextHp === 0) {

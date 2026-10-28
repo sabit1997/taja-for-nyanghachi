@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { STAGES, clearBonus, comboMultiplier, damageFor } from './stages';
+import { STAGES, chargeAfterHit, clearBonus, comboMultiplier, damageFor } from './stages';
 
 describe('comboMultiplier', () => {
   it('콤보마다 10%씩, 10콤보에서 멈춘다', () => {
@@ -14,6 +14,21 @@ describe('damageFor', () => {
     expect(damageFor('닭', 0)).toBe(4);
     expect(damageFor('닭', 5)).toBe(6);
     expect(damageFor('cat', 0)).toBe(3);
+  });
+});
+
+describe('chargeAfterHit', () => {
+  it('타수만큼만 게이지를 밀어낸다', () => {
+    // '강아지' = 3+2+2 = 7타 → 7 × 0.045 = 0.315
+    expect(chargeAfterHit(0.8, '강아지')).toBeCloseTo(0.485);
+  });
+
+  it('0 아래로는 내려가지 않는다', () => {
+    expect(chargeAfterHit(0.1, '강아지')).toBe(0);
+  });
+
+  it('긴 문장은 게이지를 크게 비운다', () => {
+    expect(chargeAfterHit(1, '천 리 길도 한 걸음부터.')).toBe(0);
   });
 });
 
