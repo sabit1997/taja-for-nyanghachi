@@ -1,0 +1,550 @@
+/* 게임 모드 — 아이콘 시트 톤의 네온 보라 우주. DOS 화면 스타일과 섞이지 않게 .game 아래에만 둔다 */
+.game {
+  --g-bg: #0b0820;
+  --g-panel: #1a1240;
+  --g-line: #8b7bff;
+  --g-glow: rgba(139, 123, 255, 0.55);
+  --g-text: #ece8ff;
+  --g-dim: #9d94d6;
+  --g-gold: #ffd166;
+  --g-pink: #ff7eb6;
+  --g-green: #7dffa1;
+  --g-red: #ff5d73;
+
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow: hidden;
+  color: var(--g-text);
+  font-family: 'Galmuri11', var(--font);
+  background: radial-gradient(ellipse at 50% 30%, #2a1b5e 0%, #140d38 45%, var(--g-bg) 100%);
+  text-shadow: none;
+}
+
+/* 별 배경: 1px 별을 box-shadow로 흩뿌리고 천천히 흐르게 */
+.game .stars,
+.game .stars::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow:
+    40px 60px #fff, 120px 300px #c9c2ff, 260px 120px #fff, 380px 420px #ffd166, 520px 80px #fff,
+    640px 260px #c9c2ff, 760px 500px #fff, 880px 140px #fff, 1000px 380px #ff7eb6, 1120px 60px #fff,
+    1240px 300px #c9c2ff, 1360px 460px #fff, 180px 560px #fff, 440px 640px #c9c2ff, 700px 700px #fff,
+    960px 620px #ffd166, 1180px 680px #fff, 1400px 160px #fff, 80px 760px #c9c2ff, 600px 20px #fff,
+    1300px 760px #fff, 340px 220px #fff, 820px 360px #c9c2ff, 1060px 220px #fff;
+  animation: g-stars 60s linear infinite;
+}
+
+.game .stars::after {
+  content: '';
+  top: 800px;
+}
+
+@keyframes g-stars {
+  to {
+    transform: translateY(-800px);
+  }
+}
+
+.game-frame {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  padding: 24px;
+  background: rgba(26, 18, 64, 0.88);
+  border: 4px solid var(--g-line);
+  /* 픽셀 계단 모서리 + 네온 번짐 */
+  box-shadow:
+    0 0 0 4px var(--g-bg),
+    0 0 0 8px var(--g-line),
+    0 0 32px 8px var(--g-glow);
+}
+
+.game .sprite {
+  display: block;
+  object-fit: contain;
+}
+
+.game .blink-text {
+  animation: blink 1s step-end infinite;
+}
+
+.game b {
+  color: var(--g-gold);
+  font-weight: normal;
+}
+
+/* ── 타이틀 / 결과 ─────────────── */
+.game-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.game-subtitle {
+  margin: 0;
+  color: var(--g-dim);
+}
+
+.game-title {
+  margin: 0;
+  font-family: 'Galmuri14', var(--font);
+  font-size: 2.6rem;
+  font-weight: normal;
+  color: var(--g-gold);
+  text-shadow:
+    3px 3px 0 #6b3fd6,
+    0 0 18px var(--g-glow);
+}
+
+.game-title.lose {
+  color: var(--g-red);
+}
+
+.title-cast {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  margin: 8px 0;
+}
+
+.title-cast .sprite {
+  height: 110px;
+}
+
+.title-cast .cast-enemy {
+  height: 56px;
+}
+
+.title-cast .cast-enemy.boss {
+  height: 90px;
+}
+
+.vs {
+  align-self: center;
+  font-family: 'Galmuri14', var(--font);
+  font-size: 1.6rem;
+  color: var(--g-pink);
+}
+
+.story {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.press-start {
+  margin: 4px 0 0;
+  color: var(--g-green);
+}
+
+.game-best {
+  margin: 0;
+  color: var(--g-dim);
+}
+
+.pixel-btn {
+  padding: 6px 20px;
+  color: var(--g-bg);
+  background: var(--g-gold);
+  box-shadow:
+    0 4px 0 #b8862b,
+    0 0 0 3px var(--g-bg);
+}
+
+.pixel-btn:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 #b8862b,
+    0 0 0 3px var(--g-bg);
+}
+
+.bob {
+  height: 120px;
+  animation: g-bob 1.2s steps(2) infinite;
+}
+
+@keyframes g-bob {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.final-stats {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 4px 24px;
+  margin: 8px 0;
+  font-size: 1.2rem;
+}
+
+.final-stats dt {
+  color: var(--g-dim);
+  text-align: right;
+}
+
+.final-stats dd {
+  margin: 0;
+  color: var(--g-gold);
+  text-align: left;
+}
+
+.game .new-best {
+  margin: 0;
+  color: var(--g-green);
+}
+
+/* ── 전투 ──────────────────────── */
+.battle {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.battle.hurt-0 .arena,
+.battle.hurt-1 .arena {
+  animation: g-hurt-0 0.4s steps(4);
+}
+
+.battle.hurt-1 .arena {
+  animation-name: g-hurt-1;
+}
+
+@keyframes g-hurt-0 {
+  25%,
+  75% {
+    background: rgba(255, 93, 115, 0.35);
+    transform: translateX(-6px);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+
+@keyframes g-hurt-1 {
+  25%,
+  75% {
+    background: rgba(255, 93, 115, 0.35);
+    transform: translateX(-6px);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 12px;
+  background: var(--g-bg);
+  border: 2px solid var(--g-line);
+}
+
+.hud-stage {
+  color: var(--g-pink);
+}
+
+.arena {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  min-height: 220px;
+  padding: 12px 24px;
+  border-bottom: 4px dotted rgba(139, 123, 255, 0.4);
+}
+
+.fighter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.fighter-name {
+  color: var(--g-dim);
+}
+
+.boss-tag {
+  padding: 0 6px;
+  color: var(--g-bg);
+  background: var(--g-red);
+}
+
+.hearts {
+  display: flex;
+  gap: 4px;
+}
+
+.hearts img {
+  height: 22px;
+}
+
+.hearts img.empty {
+  filter: grayscale(1) brightness(0.35);
+}
+
+.hero-sprite {
+  height: 130px;
+}
+
+.flinch {
+  animation: g-flinch 0.4s steps(4);
+}
+
+@keyframes g-flinch {
+  25%,
+  75% {
+    transform: translateX(-8px);
+    filter: brightness(2) sepia(1) hue-rotate(-40deg);
+  }
+}
+
+.enemy {
+  width: 46%;
+}
+
+.sprite-wrap {
+  position: relative;
+}
+
+.enemy-sprite {
+  height: 90px;
+}
+
+.enemy-sprite.boss {
+  height: 140px;
+}
+
+.shake {
+  animation: g-shake 0.35s steps(4) 0.25s;
+}
+
+@keyframes g-shake {
+  25%,
+  75% {
+    transform: translateX(8px);
+    filter: brightness(3);
+  }
+  50% {
+    transform: translateX(-8px);
+  }
+}
+
+.dead {
+  animation: g-dead 0.8s steps(6) forwards;
+}
+
+@keyframes g-dead {
+  to {
+    opacity: 0;
+    transform: scale(1.4) rotate(20deg);
+    filter: brightness(3);
+  }
+}
+
+.damage {
+  position: absolute;
+  top: -10px;
+  right: -30px;
+  font-family: 'Galmuri14', var(--font);
+  font-size: 1.6rem;
+  color: var(--g-gold);
+  text-shadow: 2px 2px 0 var(--g-bg);
+  opacity: 0;
+  animation: g-damage 0.9s steps(6) 0.25s;
+}
+
+@keyframes g-damage {
+  0% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+}
+
+.projectile {
+  position: absolute;
+  left: 18%;
+  bottom: 80px;
+  height: 34px;
+  opacity: 0;
+  animation: g-throw 0.3s steps(6);
+}
+
+@keyframes g-throw {
+  0% {
+    opacity: 1;
+    transform: translateX(0) rotate(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(min(52vw, 470px)) rotate(360deg);
+  }
+}
+
+.bar {
+  position: relative;
+  width: 100%;
+  height: 18px;
+  background: var(--g-bg);
+  border: 2px solid var(--g-line);
+}
+
+.bar > div {
+  height: 100%;
+  transition: width 0.15s steps(3);
+}
+
+.bar span {
+  position: absolute;
+  inset: 0;
+  font-size: 0.75rem;
+  line-height: 14px;
+  text-align: center;
+  color: var(--g-text);
+  text-shadow: 1px 1px 0 var(--g-bg);
+}
+
+.hp-bar > div {
+  background: repeating-linear-gradient(90deg, var(--g-green) 0 8px, #4fd27a 8px 10px);
+}
+
+.charge-bar > div {
+  background: repeating-linear-gradient(90deg, var(--g-pink) 0 8px, #d94f8c 8px 10px);
+  transition: none;
+}
+
+.speech {
+  align-self: flex-end;
+  max-width: 100%;
+  padding: 10px 18px;
+  font-size: 1.5rem;
+  background: var(--g-text);
+  color: var(--g-bg);
+  box-shadow:
+    0 0 0 3px var(--g-bg),
+    0 0 0 6px var(--g-line);
+}
+
+.speech .ch-todo {
+  color: var(--g-bg);
+}
+
+.speech .ch-ok {
+  color: #1d9b52;
+}
+
+.speech .ch-bad {
+  color: #fff;
+  background: var(--g-red);
+}
+
+.speech .ch-pending {
+  color: #6b3fd6;
+}
+
+.command {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  font-size: 1.4rem;
+  background: var(--g-bg);
+  border: 2px solid var(--g-line);
+}
+
+.prompt {
+  color: var(--g-green);
+}
+
+.command-typed {
+  flex: 1;
+  min-height: 1.5em;
+}
+
+.command .ch-ok,
+.command .ch-todo {
+  color: var(--g-text);
+}
+
+.command .ch-bad {
+  color: #fff;
+  background: var(--g-red);
+}
+
+.command .ch-pending {
+  color: var(--g-gold);
+}
+
+.combo {
+  color: var(--g-gold);
+  white-space: nowrap;
+}
+
+.combo.hot {
+  color: var(--g-pink);
+  animation: blink 0.5s step-end infinite;
+}
+
+.battle-help {
+  margin: 0;
+  text-align: center;
+  color: var(--g-dim);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .game-frame {
+    padding: 16px 12px;
+  }
+
+  .game-title {
+    font-size: 1.8rem;
+  }
+
+  .title-cast .sprite {
+    height: 70px;
+  }
+
+  .title-cast .cast-enemy {
+    height: 36px;
+  }
+
+  .title-cast .cast-enemy.boss {
+    height: 56px;
+  }
+
+  .arena {
+    padding: 8px;
+    min-height: 170px;
+  }
+
+  .hero-sprite {
+    height: 80px;
+  }
+
+  .enemy-sprite {
+    height: 60px;
+  }
+
+  .enemy-sprite.boss {
+    height: 90px;
+  }
+
+  .speech,
+  .command {
+    font-size: 1.1rem;
+  }
+}
