@@ -126,8 +126,73 @@
   height: 56px;
 }
 
-.title-cast .cast-enemy.boss {
+.title-cast .cast-enemy.mid {
+  height: 64px;
+}
+
+.title-cast .cast-enemy.final {
   height: 90px;
+}
+
+/* 난이도 선택 */
+.difficulty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.difficulty-arrow {
+  color: var(--g-dim);
+}
+
+.difficulty-option {
+  min-width: 5em;
+  padding: 4px 12px;
+  color: var(--g-dim);
+  background: var(--g-bg);
+  border: 2px solid rgba(139, 123, 255, 0.4);
+}
+
+.difficulty-option.on {
+  color: var(--g-bg);
+  border-color: var(--g-bg);
+  box-shadow: 0 0 0 2px var(--g-line);
+}
+
+.difficulty-option.easy.on {
+  background: var(--g-green);
+}
+
+.difficulty-option.normal.on {
+  background: var(--g-gold);
+}
+
+.difficulty-option.hard.on {
+  background: var(--g-red);
+}
+
+.difficulty-desc {
+  margin: 0;
+  color: var(--g-dim);
+  font-size: 0.9rem;
+}
+
+.hud-difficulty {
+  margin-left: 8px;
+  color: var(--g-dim);
+}
+
+.next-enemy {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: var(--g-bg);
+  border: 2px solid var(--g-line);
+}
+
+.next-enemy .sprite {
+  height: 48px;
 }
 
 .vs {
@@ -522,8 +587,17 @@
     height: 36px;
   }
 
-  .title-cast .cast-enemy.boss {
+  .title-cast .cast-enemy.mid {
+    height: 44px;
+  }
+
+  .title-cast .cast-enemy.final {
     height: 56px;
+  }
+
+  .title-cast {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .arena {
